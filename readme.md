@@ -161,6 +161,7 @@ dmesg | tail -50                            # последние сообщен�
 
 ```bash
 systemctl status nginx          # статус сервиса
+systemctl status <PID>          # статус сервиса по номеру PID
 systemctl restart nginx         # перезапуск
 systemctl stop nginx            # остановить
 systemctl enable nginx          # автозапуск
@@ -189,6 +190,8 @@ helm install test bitnami/nginx --dry-run --debug          # dry-run устан�
 helm get values my-nginx -n NAMESPACE                     # получить values релиза
 helm get manifest my-nginx -n NAMESPACE                   # получить manifest релиза
 helm upgrade --install my-nginx bitnami/nginx -f values.yaml -n NAMESPACE  # upgrade или install
+helm pull bitnami/nginx --untar                            # спулить и распаковать образ
+helm pull oci://registry-1.docker.io/bitnamicharts/redis --untar --untardir . # спулить и распаковать образ из кастомного registry в текущую директорию 
 ```
 
 ---
