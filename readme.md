@@ -151,8 +151,11 @@ iptables -L -v -n                 # правила firewall
 tail -f /var/log/syslog                   # смотреть лог в реальном времени
 tail -100 app.log                         # последние 100 строк
 journalctl -xe                            # системные ошибки
-journalctl -u nginx -f                     # логи конкретного сервиса
-dmesg | tail -50                            # последние сообщения ядра
+journalctl -u nginx -f                    # логи конкретного сервиса в реальном времени
+journalctl -p err                         # только ошибки (err)
+journalctl --since "2026-03-01 10:00"     # логи с определённого времени
+journalctl --disk-usage                   # проверить сколько места занимают логи
+dmesg | tail -50                          # последние сообщения ядра
 ```
 
 ---
