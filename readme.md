@@ -31,6 +31,55 @@ sar -u 1 5             # нагрузка CPU за время
 
 ---
 
+🔁 RSYNC
+
+```bash
+rsync -avh source/ destination/                    # базовая синхронизация
+rsync -avzh /var/www user@server:/var/www         # копирование на удалённый сервер
+rsync -avzh user@server:/backup /local/backup     # копирование с удалённого сервера
+rsync -avh --delete /source/ /destination/        # зеркалирование (удаляет лишние файлы)
+rsync -avh --dry-run --delete /data /backup       # dry-run (проверка перед запуском)
+rsync -avh --exclude="*.log" app/ backup/         # исключить файлы
+rsync -avh --bwlimit=1000 /data backup/           # ограничение скорости (KB/s)
+rsync -avh -e "ssh -p 2222" /data user@server:/data  # через нестандартный SSH порт
+rsync -a --delete /var/www /backup/www_$(date +%F)  # backup с датой
+
+-a архивный режим
+-v подробный вывод
+-z сжатие при передаче
+-h читаемые размеры
+
+```
+
+---
+
+
+# 📤 SCP
+
+```bash
+scp file.txt user@server:/home/user/              # отправить файл
+scp user@server:/home/user/file.txt .             # скачать файл
+scp -r project/ user@server:/var/www/             # копировать директорию
+scp -P 2222 file.txt user@server:/home/user/      # через нестандартный порт
+scp -i ~/.ssh/id_rsa file.txt user@server:/home/user/  # указать SSH ключ
+scp -l 1000 file.txt user@server:/home/user/      # ограничить скорость (Kbit/s)
+```
+
+---
+
+🔗 LN (Links)
+
+```bash
+ln -s /var/log/app.log app.log        # создать symbolic link, в текущей папке появляется файл app.log, который ссылается на /var/log/app.log
+ln file.txt file_hardlink.txt         # создать hard link, ориг. файл и file_hardlink.txt     hard link – ещё одно имя для того же файла
+ln -sf /new/path config               # перезаписать существующий symlink
+ln -s ../releases/2026-03-01 current  # относительная ссылка (удобно для deploy)
+ls -li                                # показать inode (для проверки hard link)
+rm app.log                            # удалить только symlink
+```
+
+---
+
 # 💽 DISK & FILESYSTEM
 
 ```bash
@@ -65,6 +114,27 @@ split -b 100M largefile.tar.gz part_  # разделить большой фай
 wc -l file.txt         # количество строк
 diff file1.txt file2.txt  # сравнение файлов
 cmp file1 file2        # побайтовое сравнение файлов
+```
+
+---
+
+
+# 📚 TAR
+
+```bash
+tar -cvf archive.tar folder/                 # создать tar архив (без сжатия), c=create, v=verbose, f=файл архива
+tar -czvf archive.tar.gz folder/             # создать tar.gz архив (gzip), z=gzip
+tar -cjvf archive.tar.bz2 folder/            # создать tar.bz2 архив (bzip2), j=bzip2
+tar -xvf archive.tar                          # распаковать tar архив (без сжатия)
+tar -xzvf archive.tar.gz                       # распаковать tar.gz архив
+tar -xjvf archive.tar.bz2                      # распаковать tar.bz2 архив
+tar -tvf archive.tar.gz                         # просмотр содержимого архива без распаковки
+tar -rvf archive.tar newfile.txt               # добавить файл в существующий архив (только uncompressed)
+tar -xvf archive.tar path/to/file.txt          # извлечь конкретный файл из архива
+tar -czvf archive.tar.gz folder/ --checkpoint=.1000 --totals  # создание архива с прогрессом
+tar -czvf archive.tar.gz folder/ --exclude='*.log' --exclude='tmp/'  # создание архива с исключениями
+tar -czvf backup.tar.gz folder1/ folder2/ folder3/  # архивирование нескольких папок
+
 ```
 
 ---
