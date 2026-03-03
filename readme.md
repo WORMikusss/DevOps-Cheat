@@ -217,6 +217,20 @@ iptables -L -v -n                 # правила firewall
 
 ---
 
+# 🧾 CERT
+
+```bash
+
+openssl s_client -connect km164.ru:443 -servername km164.ru                                          # сертификат сайта 
+openssl s_client -connect km164.ru:443 -servername km164.ru 2>/dev/null | openssl x509 -noout -dates # даты действия сертификата 
+openssl x509 -in certificate.crt -text -noout                                                        # локальный сертификат crt/pem
+openssl x509 -in certificate.crt -noout -dates                                                       # даты действия локального сертификата crt/pem
+openssl rsa -in private.key -check                                                                   # просмотр приватного ключа
+
+
+```
+``
+
 # 📜 LOGS
 
 ```bash
