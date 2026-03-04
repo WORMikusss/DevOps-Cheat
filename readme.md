@@ -92,6 +92,8 @@ blkid                  # UUID дисков
 mount                  # смонтированные FS
 mount -o remount,rw /  # перемонтировать FS в rw
 stat -f /              # информация о файловой системе
+iostat -xz 1           # показывает нагрузку на диски, -x — расширенная статистика -z — не показывать неактивные устройства
+iotop                  # показывает какой процесс нагружает диск
 ```
 
 ---
@@ -208,11 +210,18 @@ curl -I https://google.com      # проверить HTTP заголовки
 curl -v http://localhost:8080   # подробный HTTP запрос
 nc -zv 127.0.0.1 5432          # проверить порт
 dig google.com                   # DNS запрос
-tcpdump -i eth0 port 80          # перехват трафика
 ping 8.8.8.8                     # проверить соединение
 traceroute google.com             # маршрут до хоста
 nslookup google.com               # DNS lookup
 iptables -L -v -n                 # правила firewall
+nft list ruleset
+nft list tables
+tcpdump -nn -i eth0 port 80                         # перехват всего трафика на 80 порту, -nn — не резолвить DNS и порты
+tcpdump -nn -i eth0 src host <IP сервера>           # весь исходящий трафик с моего сервера
+tcpdump -nn -i eth0 dst host <IP сервера>           # всё, что приходит на мой сервер
+tcpdump -nn -i eth0 src net 172.17.254.0/24         # пакеты, приходящие ко мне из указанной подсети
+tcpdump -nn -i eth0 dst net 172.17.254.0/24         # пакеты, отправленные от меня в указанную подсеть
+tcpdump -i any -w dump.pcap                         # по всем интерфейсам и сохранение в .pcap
 ```
 
 ---
@@ -229,7 +238,7 @@ openssl rsa -in private.key -check                                              
 
 
 ```
-``
+
 
 # 📜 LOGS
 
@@ -254,6 +263,7 @@ systemctl status <PID>          # статус сервиса по номеру 
 systemctl restart nginx         # перезапуск
 systemctl stop nginx            # остановить
 systemctl enable nginx          # автозапуск
+systemctl show nginx            # свойства systemd сервиса 
 systemctl list-timers           # список systemd таймеров
 at 23:00 -f script.sh           # запустить скрипт один раз
 journalctl -u SERVICE           # логи конкретного systemd сервиса
