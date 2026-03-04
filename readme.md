@@ -214,11 +214,15 @@ ping 8.8.8.8                     # проверить соединение
 traceroute google.com             # маршрут до хоста
 nslookup google.com               # DNS lookup
 iptables -L -v -n                 # правила firewall
-nft list ruleset
-nft list tables
+nft list ruleset                 # показывает все правила firewall полностью
+nft list tables                  # показывает только список таблиц firewall, без правил
+
 tcpdump -nn -i eth0 port 80                         # перехват всего трафика на 80 порту, -nn — не резолвить DNS и порты
-tcpdump -nn -i eth0 src host <IP сервера>           # весь исходящий трафик с моего сервера
-tcpdump -nn -i eth0 dst host <IP сервера>           # всё, что приходит на мой сервер
+tcpdump -nn -i eth0                                 # весь трафик (входящий + исходящий)
+tcpdump -nn -i eth0 -Q in                           # показать весь входящий трафик на интерфейс
+tcpdump -nn -i eth0 -Q out                          # показать весь исходящий трафик с интерфейса
+tcpdump -nn -i eth0 src host <IP сервера>           # показать весь исходящий трафик с этого IP
+tcpdump -nn -i eth0 dst host <IP сервера>           # показать всё, что приходит на этот IP
 tcpdump -nn -i eth0 src net 172.17.254.0/24         # пакеты, приходящие ко мне из указанной подсети
 tcpdump -nn -i eth0 dst net 172.17.254.0/24         # пакеты, отправленные от меня в указанную подсеть
 tcpdump -i any -w dump.pcap                         # по всем интерфейсам и сохранение в .pcap
