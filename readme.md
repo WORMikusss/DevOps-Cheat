@@ -304,7 +304,9 @@ helm pull oci://registry-1.docker.io/bitnamicharts/redis --untar --untardir . # 
 ```bash
 kubectl get pod nginx -o yaml | kubectl neat           # показ yaml без метаданных и аннотаций
 kubectl tree deployment nginx                          # показ дерева deployment
-kubectl triage pod -n NAMESPACE                        # показ причин завершения пода и 50 последних и предыдущих логов 
+kubectl triage pod -n NAMESPACE                        # показ причин завершения пода и 50 последних и предыдущих логов
+kubectl view-secret <secret-name> -n <namespace>       # показ секретов без декодирования base64 -d
+kubectl popeye -n <namespace>                          # ошибки в namespace
 
 ```
 
@@ -413,6 +415,9 @@ kubectl get pvc -n NAMESPACE                           # список PVC
 kubectl get pv                                         # список PV
 kubectl apply -f file.yaml                             # применить конфигурацию YAML
 kubectl get pod nginx -o yaml                         # текущие значения пода в YAML
+kubectl get statefulsets -A                           # список всех statefulset
+kubectl get sts -A                                    # краткая форма (sts)
+kubectl scale sts <name> --replicas=3 -n <ns> # масштабирование
 ```
 
 ---
@@ -421,7 +426,7 @@ kubectl get pod nginx -o yaml                         # текущие знач�
 
 ```bash
 lsof -i :8080                           # кто занимает порт
-lsof -i -P -N                           # -P показ порта, -n отключает DNS 
+lsof -i -P -n                           # -P показ порта, -n отключает DNS 
 watch -n 2 "df -h"                       # мониторинг диска
 ps aux --sort=-%cpu | head               # топ процессов по CPU
 docker rm $(docker ps -aq)               # удалить все контейнеры
