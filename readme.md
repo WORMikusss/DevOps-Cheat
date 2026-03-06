@@ -8,11 +8,67 @@
 uname -a               # информация о ядре и архитектуре системы
 hostnamectl            # версия ОС и hostname
 uptime                 # время работы сервера и нагрузка
-whoami                 # текущий пользователь
-id                     # UID, GID и группы пользователя
 date                   # текущая дата и время
 timedatectl            # время и NTP синхронизация
 lsb_release -a         # версия дистрибутива Linux
+```
+---
+
+# 👤 USERS/GROUPS
+
+```bash
+
+whoami                         # текущий пользователь
+who                            # кто залогинен в системе
+w                              # пользователи + что они делают
+id                             # UID, GID и группы пользователя
+id username                    # информация о пользователе
+cat /etc/passwd                # список пользователей
+cut -d: -f1 /etc/passwd        # только имена пользователей
+getent passwd username         # информация о пользователе из system db
+
+
+# ===== GROUPS =====
+
+cat /etc/group                 # список групп
+groups                         # группы текущего пользователя
+groups username                # группы пользователя
+getent group groupname         # информация о группе
+
+
+# ===== USER MANAGEMENT =====
+
+useradd username               # добавить пользователя
+useradd -m username            # создать пользователя с домашней папкой
+useradd -m -s /bin/bash user   # создать пользователя с shell
+
+passwd username                # задать пароль пользователю
+passwd                         # сменить свой пароль
+
+usermod -aG group username     # добавить пользователя в группу
+usermod -g group username      # изменить primary группу
+usermod -s /bin/bash username  # изменить shell пользователя
+
+userdel username               # удалить пользователя
+userdel -r username            # удалить пользователя + home
+
+
+# ===== GROUP MANAGEMENT =====
+
+groupadd groupname             # создать группу
+groupdel groupname             # удалить группу
+
+gpasswd -a user group          # добавить пользователя в группу
+gpasswd -d user group          # удалить пользователя из группы
+
+
+# ===== SUDO =====
+
+usermod -aG sudo username      # дать sudo права (Ubuntu / Debian)
+usermod -aG wheel username     # дать sudo права (RHEL / CentOS)
+
+visudo                         # редактировать sudoers безопасно
+
 ```
 
 ---
