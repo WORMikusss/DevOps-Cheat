@@ -115,7 +115,9 @@ file file.txt          # тип файла
 cp -r dir1 dir2        # копирование папки
 mv old.txt new.txt     # переименование файла
 rm -rf dir             # удалить папку
-ln -s /var/log/app.log app.log  # создать symbolic link
+rm -i file.txt         # интерактивное удаление
+rmdir testdir          # удаление пустой папки
+
 head -n 20 file.log    # первые 20 строк
 less file.log          # просмотр постранично
 cat file.txt           # вывести файл полностью
