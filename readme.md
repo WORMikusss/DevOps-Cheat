@@ -248,11 +248,12 @@ grep -r 'TODO' ./                           # рекурсивный поиск 
 grep ERROR app.log                          # найти строку ERROR
 grep -i error app.log                       # без учета регистра
 grep -r password /etc                       # рекурсивный поиск
+grep -Ei 'error|warn|info' file.txt         # несколько слов без учёта регистра
 awk '{print $1}' file.txt                   # вывести первую колонку
 sed 's/old/new/g' file.txt                  # заменить текст
 cut -d':' -f1 /etc/passwd                   # первая колонка
-sort file.txt                                # сортировка строк
-uniq file.txt                                # удалить дублирующиеся строки
+sort file.txt                               # сортировка строк
+uniq file.txt                               # удалить дублирующиеся строки
 ```
 
 ---
