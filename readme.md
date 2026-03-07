@@ -45,10 +45,13 @@ useradd -m -s /bin/bash user   # создать пользователя с shel
 
 passwd username                # задать пароль пользователю
 passwd                         # сменить свой пароль
+passwd -l username             # заблокировать пользователя
+passwd -u username             # разблокировать пользователя  
 
 usermod -aG group username     # добавить пользователя в группу
 usermod -g group username      # изменить primary группу
 usermod -s /bin/bash username  # изменить shell пользователя
+usermod -d /home/name username # создать домашнюю директорию для пользователя 
 
 userdel username               # удалить пользователя
 userdel -r username            # удалить пользователя + home
