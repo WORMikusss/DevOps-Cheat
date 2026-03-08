@@ -193,6 +193,7 @@ cat file.txt           # вывести файл полностью
 split -b 100M largefile.tar.gz part_  # разделить большой файл
 wc -l file.txt         # количество строк
 diff file1.txt file2.txt  # сравнение файлов
+diff -r /path /path2    # сравнение директорий 
 cmp file1 file2        # побайтовое сравнение файлов
 ```
 
@@ -225,6 +226,7 @@ tar -czvf backup.tar.gz folder1/ folder2/ folder3/  # архивирование
 chmod 755 script.sh           # rwxr-xr-x
 chmod +x script.sh            # сделать исполняемым
 chown user:group file.txt     # сменить владельца
+chmod 2755 directory          # setgid, новые файлы будут унаследовать группу этой директории 
 chown -R www-data:www-data /var/www  # сменить рекурсивно
 umask                          # показать default маску прав
 getfacl file.txt              # показать ACL прав
