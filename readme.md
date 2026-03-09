@@ -566,16 +566,22 @@ git pull                          # получить и смержить
 git push                          # отправить изменения
 git push -u origin branch         # установить upstream
 git remote add origin URL         # добавить remote
+
+git reset --hard HEAD~1                     # откатить последний коммит
+git reset --hard <hash_нужного_коммита>     # откатить на указанный коммит
+git push --force-with-lease                 # перезаписывает ветку на сервере
 ```
 
 ## 🔹 Полезное для DevOps
 
 ```bash
+revert = отменить конкретные изменения
+reset  = вернуться к старому состоянию
+
 git stash                         # сохранить изменения временно
 git stash pop                     # вернуть stash
 git tag v1.0                      # создать тег
 git tag                           # список тегов
-git reset --hard HEAD~1           # откатить последний коммит
 git revert COMMIT                 # безопасный откат коммита
 git blame file.txt                # кто менял строки
 ```
