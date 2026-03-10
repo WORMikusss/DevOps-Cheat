@@ -98,7 +98,7 @@ sar -u 1 5             # нагрузка CPU за время
 
 ---
 
-🔁 RSYNC
+# 🔁 RSYNC
 
 ```bash
 rsync -avh source/ destination/                    # базовая синхронизация
@@ -115,11 +115,9 @@ rsync -a --delete /var/www /backup/www_$(date +%F)  # backup с датой
 -v подробный вывод
 -z сжатие при передаче
 -h читаемые размеры
-
 ```
 
 ---
-
 
 # 📤 SCP
 
@@ -134,7 +132,7 @@ scp -l 1000 file.txt user@server:/home/user/      # ограничить ско�
 
 ---
 
-🔗 LN (Links)
+# 🔗 LN (Links)
 
 ```bash
 ln -s /var/log/app.log app.log        # создать symbolic link, в текущей папке появляется файл app.log, который ссылается на /var/log/app.log
@@ -535,6 +533,7 @@ tar -czvf backup_$(date +%F).tar.gz /var/www  # создать архив сай
 git init                          # инициализировать репозиторий
 git clone REPO_URL                # клонировать репозиторий
 git status                        # статус изменений
+git status --ignored              # показать игнорируемые файлы 
 git add file.txt                  # добавить файл в stage
 git add .                         # добавить все изменения
 git commit -m "message"           # создать коммит
@@ -542,6 +541,9 @@ git log                           # история коммитов
 git log --oneline --graph --all   # красивая история с ветками
 git diff                          # показать изменения
 git show COMMIT                   # показать конкретный коммит
+git restore --staged file.txt     # не включать файл в коммит (отменяет git add)
+git restore file.txt              # отменить изменения в файле (возвращается к версии последнего коммита)
+
 ```
 
 ## 🔹 Ветки
@@ -572,7 +574,8 @@ git remote add origin URL         # добавить remote
 git remote -v                     # список remote
 git remote show origin            # посмотреть информацию о remote ветках 
 
-git reset --hard HEAD~1                     # откатить последний коммит
+git reset --soft HEAD~1                     # отменить последний коммит, но оставить изменения
+git reset --hard HEAD~1                     # отменить последний коммит и изменения файлов 
 git reset --hard <hash_нужного_коммита>     # откатить на указанный коммит
 git push --force-with-lease                 # перезаписывает удалённую ветку, только если она НЕ изменилась
 git push --force                            # принудительно перезаписывает удаленную ветку 
@@ -585,12 +588,21 @@ git push --force                            # принудительно пер�
 revert = отменить конкретные изменения
 reset  = вернуться к старому состоянию
 
-git stash                         # сохранить изменения временно
-git stash pop                     # вернуть stash
-git tag v1.0                      # создать тег
-git tag                           # список тегов
-git revert COMMIT                 # безопасный откат коммита
-git blame file.txt                # кто менял строки
+echo "*.log" > .gitignore                          # добавить файл в .gitignore (его тоже git add)
+
+git stash                                          # сохранить изменения временно
+git stash pop                                      # вернуть stash
+git tag v1.0                                       # создать тег
+git tag                                            # список тегов
+git revert COMMIT                                  # безопасный откат коммита
+git blame file.txt                                 # кто менял строки
+git config --list                                  # показ переменных user.name user.email
+git config --global user.name "Jane Doe"           # задать глобальное имя 
+git config --global user.email "info@example.com"  # задать глобальный email
+git config --global core.editor nano               # nano как редактор по умолчанию
+git config --global alias.st status                # алиас git st = git status
+git config user.name "Lab User"                    # задать имя в конкретном проекте (cd ~/project)
+
 ```
 
 ---
