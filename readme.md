@@ -547,29 +547,36 @@ git show COMMIT                   # показать конкретный ком
 ## 🔹 Ветки
 
 ```bash
-git branch                        # список веток
-git branch new-branch             # создать ветку
-git checkout new-branch           # переключиться на ветку
-git checkout -b new-branch        # создать и переключиться
-git switch main                   # переключиться на ветку
-git merge feature                 # слить feature в текущую ветку
-git rebase main                   # перебазировать ветку
-git branch -d branch-name         # удалить ветку
+git branch                                     # список веток
+git branch -vv                                 # список локальны веток и привязка к origin
+git branch -a                                  # список всех веток 
+git branch new-branch                          # создать локальную ветку
+git checkout new-branch                        # переключиться на локальную ветку
+git checkout -b branch                         # создать локальную ветку и переключиться на неё 
+git checkout -b branch origin/branch           # создаёт ветку из удалённой ветки origin/branch
+git branch --set-upstream-to=origin/test test  # привязать origin ветку к локальной 
+git switch main                                # переключиться на ветку
+git merge feature                              # слить feature в текущую ветку
+git rebase main                                # перебазировать ветку
+git branch -d branch-name                      # удалить ветку
 ```
 
 ## 🔹 Remote
 
 ```bash
-git remote -v                     # список remote
 git fetch                         # получить изменения
 git pull                          # получить и смержить
 git push                          # отправить изменения
 git push -u origin branch         # установить upstream
 git remote add origin URL         # добавить remote
+git remote -v                     # список remote
+git remote show origin            # посмотреть информацию о remote ветках 
 
 git reset --hard HEAD~1                     # откатить последний коммит
 git reset --hard <hash_нужного_коммита>     # откатить на указанный коммит
-git push --force-with-lease                 # перезаписывает ветку на сервере
+git push --force-with-lease                 # перезаписывает удалённую ветку, только если она НЕ изменилась
+git push --force                            # принудительно перезаписывает удаленную ветку 
+
 ```
 
 ## 🔹 Полезное для DevOps
