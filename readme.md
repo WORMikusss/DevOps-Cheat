@@ -513,7 +513,7 @@ kubectl scale sts <name> --replicas=3 -n <ns> # масштабирование
 ```bash
 netstat -ntulp                           # кто занимает порт 
 ss- ntulp                                # кто занимает порт
-lsof -i :8080                            # кто занимает конкреетный порт
+lsof -i :8080                            # кто занимает конкретный порт
 lsof -i -P -n                            # -P показ порта, -n отключает DNS 
 watch -n 2 "df -h"                       # мониторинг диска
 ps aux --sort=-%cpu | head               # топ процессов по CPU
@@ -574,7 +574,7 @@ git remote add origin URL         # добавить remote
 git remote -v                     # список remote
 git remote show origin            # посмотреть информацию о remote ветках 
 
-git reset --soft HEAD~1                     # отменить последний коммит, но оставить изменения
+git reset --soft HEAD~1                     # отменить последний коммит, но оставить изменения в файлах
 git reset --hard HEAD~1                     # отменить последний коммит и изменения файлов 
 git reset --hard <hash_нужного_коммита>     # откатить на указанный коммит
 git push --force-with-lease                 # перезаписывает удалённую ветку, только если она НЕ изменилась
