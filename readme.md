@@ -270,6 +270,7 @@ ps aux                          # список процессов
 ps aux | grep nginx             # найти процесс nginx
 ps aux --sort=-%mem | head      # топ по памяти
 pidof nginx                     # получить только PID процесса
+pgrep -a nginx                  # показать PID и полную командную строку
 pgrep -u www-data               # процессы конкретного пользователя
 pstree -p -u -a                 # список процессов, c пользователем и аргументами командной строки 
 kill -9 PID                     # убить процесс
@@ -284,19 +285,22 @@ top -H                          # мониторинг потоков проце
 # 🌐 NETWORK
 
 ```bash
+mtr google.com                  # mtr потери
+iftop -i eth0                   # трафик в реальном времени по соединениям
+nethogs -v 4 eth0               # какой процесс отправляет/получает данных, m -переключение ед. измерения 
 ip a                            # IP адреса
 ip route                        # маршруты
-ss -tulnp                        # открытые порты
+ss -tulnp                       # открытые порты
 curl -I https://google.com      # проверить HTTP заголовки
 curl -v http://localhost:8080   # подробный HTTP запрос
-nc -zv 127.0.0.1 5432          # проверить порт
-dig google.com                   # DNS запрос
-ping 8.8.8.8                     # проверить соединение
-traceroute google.com             # маршрут до хоста
-nslookup google.com               # DNS lookup
-iptables -L -v -n                 # правила firewall
-nft list ruleset                 # показывает все правила firewall полностью
-nft list tables                  # показывает только список таблиц firewall, без правил
+nc -zv 127.0.0.1 5432           # проверить порт
+dig google.com                  # DNS запрос
+ping 8.8.8.8                    # проверить соединение
+traceroute google.com           # маршрут до хоста
+nslookup google.com             # DNS lookup
+iptables -L -v -n               # правила firewall
+nft list ruleset                # показывает все правила firewall полностью
+nft list tables                 # показывает только список таблиц firewall, без правил
 
 tcpdump -nn -i eth0 port 80                         # перехват всего трафика на 80 порту, -nn — не резолвить DNS и порты
 tcpdump -nn -i eth0                                 # весь трафик (входящий + исходящий)
