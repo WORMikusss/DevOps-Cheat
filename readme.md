@@ -236,13 +236,15 @@ setfacl -m u:user:rw file.txt  # добавить ACL права
 # 🔍 FIND / SEARCH
 
 ```bash
-find / -name config.yml                     # найти файл по имени
-find /var/log -type f -mtime -1            # файлы изменённые за сутки
+find / -name config.yml                    # найти файл по имени
+find /var/log -type f -mtime -1            # файлы младше 1 дня
 find . -type f -size +100M                 # файлы больше 100MB
-find /tmp -type f -mtime +7 -delete        # удалить старые файлы
-find . -name "*.log" -exec rm -f {} \;   # найти и удалить .log
-locate nginx.conf                           # быстрый поиск
-grep -r 'TODO' ./                           # рекурсивный поиск по тексту
+find /tmp -type f -mtime +7 -delete        # удалить файлы старше 7 дней 
+find . -name "*.log" -exec rm -f {} \;     # найти и удалить .log
+find /tmp -type f -empty                   # пустые файлы
+find /tmp -type d -empty                   # пустые папки
+locate -i nginx.conf                       # быстрый поиск без регистра
+grep -r 'TODO' ./                          # рекурсивный поиск по тексту
 ```
 
 ---
