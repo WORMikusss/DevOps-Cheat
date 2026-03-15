@@ -14,6 +14,17 @@ lsb_release -a         # версия дистрибутива Linux
 ```
 ---
 
+# 🔑 SSH
+
+```bash
+ssh-keygen                                       # создать SSH ключ с настройками по умолчанию
+ssh-keygen -t ed25519                            # создать ed25519 ключ
+ssh-keygen -t ed25519 -f ~/.ssh/testkey          # создать ключ с именем testkey
+ssh-copy-id user@1.2.3.4                         # скопировать стандартный публичный ключ на сервер
+ssh-copy-id -i ~/.ssh/testkey.pub user@1.2.3.4   # скопировать конкретный публичный ключ
+```
+---
+
 # 👤 USERS/GROUPS
 
 ```bash
@@ -49,6 +60,7 @@ passwd -l username             # заблокировать пользовате
 passwd -u username             # разблокировать пользователя  
 
 usermod -aG group username     # добавить пользователя в группу
+adduser group username         # добавить пользователя в группу
 usermod -g group username      # изменить primary группу
 usermod -s /bin/bash username  # изменить shell пользователя
 usermod -d /home/name username # создать домашнюю директорию для пользователя 
@@ -171,15 +183,20 @@ lsof -c <имя_процесса>  # какие файлы использует 
 # 📁 FILES & DIRECTORIES
 
 ```bash
+cd -                   # вернуться к прошлой директории 
 ls -la                 # список файлов с правами и владельцами
 ls -laht               # список файлов от новых к старым, в human виде
 ls -lahtr              # список файлов от старых к новым, в human виде
 ls -lR                 # рекурсивно, директории и вложенные файлы
 ls -ld                 # права на самой директории 
 tree                   # структура директорий
+tree -p                # структура директорий с правами
 stat file.txt          # метаданные файла
 file file.txt          # тип файла
 cp -r dir1 dir2        # копирование папки
+cp -p file1 file2      # копирование с сохранением атрибутов (прав)
+cp -n file1 file2      # режим "без перезаписи"; не заменять уже существующие файлы.
+cp -a file1 file2      # сохранение метаданных, timestamp и симлинков
 mv old.txt new.txt     # переименование файла
 rm -rf dir             # удалить папку
 rm -i file.txt         # интерактивное удаление
@@ -280,6 +297,7 @@ pkill nginx                     # убить процессы по имени
 killall nginx                   # убить все процессы по имени
 nice -n 10 command              # запустить с пониженным приоритетом
 top -H                          # мониторинг потоков процессов
+which python                    # местоположение исполняемого файла, -a все версии программы 
 ```
 
 ---
@@ -365,8 +383,9 @@ systemctl stop nginx            # остановить
 systemctl enable nginx          # автозапуск
 systemctl show nginx            # свойства systemd сервиса 
 systemctl list-timers           # список systemd таймеров
+systemctl list-units            # список suystemd сервисов 
+systemctl list-units -t service # только сервисы 
 at 23:00 -f script.sh           # запустить скрипт один раз
-journalctl -u SERVICE           # логи конкретного systemd сервиса
 ```
 
 ---
@@ -485,35 +504,41 @@ docker-compose exec SERVICE bash # зайти внутрь сервиса
 # 🐳 KUBERNETES / kubectl
 
 ```bash
-kubectl get pods -A                                   # список всех pod'ов
-kubectl get nodes                                     # список нод
-kubectl get services -A                               # сервисы
-kubectl describe pod NAME --namespace=NAME            # подробности pod
-kubectl logs NAME                                     # логи контейнера
-kubectl logs -f NAME                                  # логи в интерактивном режиме
-kubectl exec -ti NAME bash                            # интерактивный bash в pod
-kubectl scale deployment/nginx --replicas=10          # масштабирование deployment
-kubectl delete pod NAME --grace-period=0 --force      # удалить зависший pod
+kubectl get pods -A                                    # список всех pod'ов
+kubectl get pods -o wide                               # список подов с доп. информацией
+kubectl get pod POD_NAME                               # полная информция о поде 
+kubectl get nodes                                      # список нод
+kubectl get services -A                                # сервисы
+kubectl describe pod NAME --namespace=NAME             # подробности pod
+kubectl logs NAME                                      # логи контейнера
+kubectl logs -f NAME                                   # логи в интерактивном режиме
+kubectl exec -ti NAME bash                             # интерактивный bash в pod
+kubectl scale deployment/nginx --replicas=10           # масштабирование deployment
+kubectl delete pod NAME --grace-period=0 --force       # удалить зависший pod
 kubectl get pods -n NAMESPACE | grep Terminating | awk '{print $1}' | xargs kubectl delete pod -n NAMESPACE --grace-period=0 --force
-kubectl get configmap NAME -n NAMESPACE              # получить configmap
-kubectl create configmap NAME --from-file=file.txt   # создать configmap
-kubectl get secrets                                   # список secrets
+kubectl get configmap NAME -n NAMESPACE                # получить configmap
+kubectl create configmap NAME --from-file=file.txt     # создать configmap
+kubectl get secrets                                    # список secrets
 kubectl create secret generic db-user-pass --from-file=username.txt --from-file=password.txt
-kubectl top pod -n NAMESPACE                          # CPU/Memory pod
-kubectl top node                                      # CPU/Memory node
-kubectl rollout status deployment/nginx -n NAMESPACE  # статус rollout
-kubectl rollout history deployment/nginx -n NAMESPACE # посмотреть историю ревизий
-kubectl describe deployment nginx -n NAMESPACE        # описание deployment
-kubectl rollout undo deployment/nginx --to-revision=2  # откат deployment
-kubectl get events -n NAMESPACE                       # последние события в namespace
-kubectl get ingress -n NAMESPACE                      # список ingress
+kubectl top pod -n NAMESPACE                           # CPU/Memory pod
+kubectl top node                                       # CPU/Memory node
+kubectl rollout status deployment/nginx -n NAMESPACE   # статус rollout
+kubectl rollout history deployment/nginx -n NAMESPACE  # посмотреть историю ревизий
+kubectl rollout history deployment/nginx --revision=2  # посмотреть детали конкретной ревизии
+kubectl rollout undo deployment/nginx --to-revision=2  # откат deployment к опредленной ревизии 
+kubectl describe deployment nginx -n NAMESPACE         # описание deployment
+kubectl get events -n NAMESPACE                        # последние события в namespace
+kubectl get ingress -n NAMESPACE                       # список ingress
 kubectl get pvc -n NAMESPACE                           # список PVC
 kubectl get pv                                         # список PV
 kubectl apply -f file.yaml                             # применить конфигурацию YAML
-kubectl get pod nginx -o yaml                         # текущие значения пода в YAML
-kubectl get statefulsets -A                           # список всех statefulset
-kubectl get sts -A                                    # краткая форма (sts)
-kubectl scale sts <name> --replicas=3 -n <ns> # масштабирование
+kubectl get pod nginx -o yaml                          # текущие значения пода в YAML
+kubectl get statefulsets -A                            # список всех statefulset
+kubectl get sts -A                                     # краткая форма (sts)
+kubectl scale sts <name> --replicas=3 -n <ns>          # масштабирование
+kubectl get rs                                         # посмотреть ReplicaSets
+kubectl get rs -o wide                                 # посмотреть ReplicaSets расширенный вывод 
+kubectl describe rs nginx-6f7b8c9d4                    # показывает подробную информацию о ReplicaSet
 ```
 
 ---
@@ -681,6 +706,9 @@ echo "Hello $NAME"
 read -p "Enter name: " USER   # ввод пользователя
 export ENV=prod               # переменная окружения
 echo ${VAR:-default}          # значение по умолчанию
+export PATH=$PATH:/root       # добавить /root в переменную PATH для текущей shell-сессии, чтобы запускать команды из /root без указания полного пути
+source ~/.bashrc              # применить изменения
+
 ```
 
 ## 🔹 Условия
