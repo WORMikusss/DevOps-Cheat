@@ -196,7 +196,7 @@ file file.txt          # тип файла
 cp -r dir1 dir2        # копирование папки
 cp -p file1 file2      # копирование с сохранением атрибутов (прав)
 cp -n file1 file2      # режим "без перезаписи"; не заменять уже существующие файлы.
-cp -a file1 file2      # сохранение метаданных, timestamp и симлинков
+cp -a file1 file2      # сохранение атрибутов (прав), timestamp и симлинков
 mv old.txt new.txt     # переименование файла
 rm -rf dir             # удалить папку
 rm -i file.txt         # интерактивное удаление
@@ -383,7 +383,7 @@ systemctl stop nginx            # остановить
 systemctl enable nginx          # автозапуск
 systemctl show nginx            # свойства systemd сервиса 
 systemctl list-timers           # список systemd таймеров
-systemctl list-units            # список suystemd сервисов 
+systemctl list-units            # список systemd сервисов 
 systemctl list-units -t service # только сервисы 
 at 23:00 -f script.sh           # запустить скрипт один раз
 ```
