@@ -22,6 +22,7 @@ ssh-keygen -t ed25519                            # создать ed25519 клю
 ssh-keygen -t ed25519 -f ~/.ssh/testkey          # создать ключ с именем testkey
 ssh-copy-id user@1.2.3.4                         # скопировать стандартный публичный ключ на сервер
 ssh-copy-id -i ~/.ssh/testkey.pub user@1.2.3.4   # скопировать конкретный публичный ключ
+ssh -T -p 10022 git@gitlab.nextcontact.ru        # протестировать подключение с указанием порта 
 ```
 ---
 
