@@ -203,14 +203,14 @@ rm -rf dir             # удалить папку
 rm -i file.txt         # интерактивное удаление
 rmdir testdir          # удаление пустой папки
 
-head -n 20 file.log    # первые 20 строк
-less file.log          # просмотр постранично
-cat file.txt           # вывести файл полностью
+head -n 20 file.log                   # первые 20 строк
+less -N file.log                      # просмотр постранично с номерами строк
+cat file.txt                          # вывести файл полностью
 split -b 100M largefile.tar.gz part_  # разделить большой файл
-wc -l file.txt         # количество строк
-diff file1.txt file2.txt  # сравнение файлов
-diff -r /path /path2    # сравнение директорий 
-cmp file1 file2        # побайтовое сравнение файлов
+wc -l file.txt                        # количество строк
+diff file1.txt file2.txt              # сравнение файлов
+diff -r /path /path2                  # сравнение директорий 
+cmp file1 file2                       # побайтовое сравнение файлов
 ```
 
 ---
