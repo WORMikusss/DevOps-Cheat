@@ -271,6 +271,8 @@ grep -r 'TODO' ./                          # рекурсивный поиск �
 
 ```bash
 grep ERROR app.log                          # найти строку ERROR
+grep -v error app.log                       # показать строки БЕЗ "error"
+grep -n error app.log                       # показать номера строк с совпадением
 grep -i error app.log                       # без учета регистра
 grep -r password /etc                       # рекурсивный поиск
 grep -Ei 'error|warn|info' file.txt         # несколько слов без учёта регистра
