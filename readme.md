@@ -261,6 +261,9 @@ find /tmp -type f -mtime +7 -delete        # удалить файлы стар�
 find . -name "*.log" -exec rm -f {} \;     # найти и удалить .log
 find /tmp -type f -empty                   # пустые файлы
 find /tmp -type d -empty                   # пустые папки
+find . -name "*.txt" -o -name "*.log"      # -o логический оператор "ИЛИ"
+find . -user "root"                        # найти файлы принадлежащие пользователю 
+find . -maxdepth 1 -type f                 # найти файлы в текущей папке (без подпапок)
 locate -i nginx.conf                       # быстрый поиск без регистра
 grep -r 'TODO' ./                          # рекурсивный поиск по тексту
 ```
