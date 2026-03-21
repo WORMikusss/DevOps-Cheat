@@ -273,12 +273,14 @@ grep -r 'TODO' ./                          # рекурсивный поиск �
 # 🔎 GREP / TEXT
 
 ```bash
-grep ERROR app.log                          # найти строку ERROR
-grep -v error app.log                       # показать строки БЕЗ "error"
-grep -n error app.log                       # показать номера строк с совпадением
-grep -i error app.log                       # без учета регистра
-grep -r password /etc                       # рекурсивный поиск
-grep -Ei 'error|warn|info' file.txt         # несколько слов без учёта регистра
+grep "ERROR" app.log                        # найти строку ERROR
+grep -w "error" app.log                     # только целое слово 
+grep -v "error" app.log                     # показать строки БЕЗ "error" (инвертирует поиск)
+grep -n error" app.log                      # показать номера строк с совпадением
+grep -i "error app.log                      # без учета регистра
+grep -r "password" /etc                     # рекурсивный поиск
+grep -Ei 'error|warn|info' file.txt         # несколько слов, -i без учёта регистра
+grep -B 2 -A 2 "error" app.log              # -B 2 (строки до), -A 2 (строки после) 
 awk '{print $1}' file.txt                   # вывести первую колонку
 sed 's/old/new/g' file.txt                  # заменить текст
 cut -d':' -f1 /etc/passwd                   # первая колонка
