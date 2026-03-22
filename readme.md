@@ -208,6 +208,7 @@ less -N file.log                      # просмотр постранично 
 cat file.txt                          # вывести файл полностью
 split -b 100M largefile.tar.gz part_  # разделить большой файл
 wc -l file.txt                        # количество строк
+wc -w file.txt                        # количество слов
 diff file1.txt file2.txt              # сравнение файлов
 diff -r /path /path2                  # сравнение директорий 
 cmp file1 file2                       # побайтовое сравнение файлов
@@ -283,8 +284,11 @@ grep -Ei 'error|warn|info' file.txt         # несколько слов, -i б
 grep -B 2 -A 2 "error" app.log              # -B 2 (строки до), -A 2 (строки после) 
 awk '{print $1}' file.txt                   # вывести первую колонку
 sed 's/old/new/g' file.txt                  # заменить текст
-cut -d':' -f1 /etc/passwd                   # первая колонка
-sort file.txt                               # сортировка строк
+cut -d ':' -f 2 /etc/passwd                 # извлечь вторую колонку, ":" - разделитель между колонками
+cut -c 11-25 file.txt                       # извлечь символы с 11 по 25
+sort file.txt                               # сортировка строк по алфавиту, -f игнорировтаь регистр, -r рекурсивно
+sort -t: -k2 -n file.txt                    # сортировать вторую колонку по числу, после разделителя ":"
+sort -u file.txt                            # сортировать и убрать повторяющиеся строки
 uniq file.txt                               # удалить дублирующиеся строки
 ```
 
