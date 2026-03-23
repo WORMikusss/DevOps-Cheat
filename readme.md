@@ -210,7 +210,11 @@ split -b 100M largefile.tar.gz part_  # разделить большой фай
 wc -l file.txt                        # количество строк
 wc -w file.txt                        # количество слов
 diff file1.txt file2.txt              # сравнение файлов
-diff -r /path /path2                  # сравнение директорий 
+diff -i file1.txt file2.txt           # сравнение файлов (без регистра)
+diff -u file1.txt file2.txt           # сравнение файлов (более читаемо)
+diff -w file1.txt file2.txt           # сравнение файлов (только изменения)
+diff -y file1.txt file2.txt           # сравнение в 2 колонки 
+diff -r /path /path2                  # сравнение директорий
 cmp file1 file2                       # побайтовое сравнение файлов
 ```
 
@@ -290,6 +294,9 @@ sort file.txt                               # сортировка строк п
 sort -t: -k2 -n file.txt                    # сортировать вторую колонку по числу, после разделителя ":"
 sort -u file.txt                            # сортировать и убрать повторяющиеся строки
 uniq file.txt                               # удалить дублирующиеся строки
+uniq -c file.txt                            # показать количество совпадений
+uniq -d file.txt                            # показать только повторяющие совпадения
+uniq -i file.txt                            # игнорировать регистр при сравнение совпадений
 ```
 
 ---
