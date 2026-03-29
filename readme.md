@@ -161,6 +161,9 @@ rm app.log                            # удалить только symlink
 # 💽 DISK & FILESYSTEM
 
 ```bash
+
+ls | tee file.txt       # записать вывод в файл (аналогично >)
+ls | tee -a file.txt    # добавить вывод в файл (аналогично >>)
 df -hT                  # использование диска + тип ФС
 df -h --total           # общий объём всех дисков
 df -i                   # проверка inode
