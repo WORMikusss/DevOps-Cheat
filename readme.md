@@ -580,7 +580,7 @@ netstat -ntulp                           # кто занимает порт
 ss- ntulp                                # кто занимает порт
 lsof -i :8080                            # кто занимает конкретный порт
 lsof -i -P -n                            # -P показ порта, -n отключает DNS 
-watch -n 2 "df -h"                       # мониторинг диска
+watch -n 5 "df -h"                       # мониторинг диска, раз в 5 минут
 ps aux --sort=-%cpu | head               # топ процессов по CPU
 docker rm $(docker ps -aq)               # удалить все контейнеры
 kubectl get pods --all-namespaces | grep Evicted | awk '{print $2}' | xargs kubectl delete pod -n NAMESPACE
