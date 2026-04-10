@@ -354,6 +354,7 @@ nft list tables                 # показывает только список
 
 tcpdump -nn -i eth0 port 80                         # перехват всего трафика на 80 порту, -nn — не резолвить DNS и порты
 tcpdump -nn -i eth0                                 # весь трафик (входящий + исходящий)
+tcpdump -nn -i eth0 host <IP> and port 5060         # весь трафик (входящий + исходящий) по определенному ip + порт
 tcpdump -nn -i eth0 -Q in                           # показать весь входящий трафик на интерфейс
 tcpdump -nn -i eth0 -Q out                          # показать весь исходящий трафик с интерфейса
 tcpdump -nn -i ens3 -Q in src host <IP>             # входящие пакеты от IP
