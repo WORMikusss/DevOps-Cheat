@@ -348,12 +348,12 @@ uniq -i file.txt                            # игнорировать реги�
 rg nginx                         # поиск текста
 rg -i nginx                      # поиск без учета регистра
 rg nginx /etc                    # поиск в указанной директории
-rg -l cert-manager ~/k8s         # показать только имена файлов с совпадением
-rg ingress ~/k8s -g '*.yaml'     # искать только в YAML-файлах
+rg -l cert-manager /etc          # найти все YAML, где встречается cert-manager
+rg ingress /etc -g '*.yaml'      # искать только в YAML-файлах в заданной директории
 rg -n nginx                      # показать номера строк
 rg -C 3 error app.log            # показать 3 строки до и после совпадения
-rg --hidden TODO                 # искать включая скрытые файлы
-rg -g '!*.log' password .        # исключить *.log из поиска
+rg --hidden error                # искать включая скрытые файлы
+rg -g '!*.log' password .        # исключить *.log из поиска в текущей директории 
 ```
 
 ---
