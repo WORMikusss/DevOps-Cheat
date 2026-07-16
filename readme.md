@@ -263,6 +263,20 @@ setfacl -m u:user:rw file.txt  # добавить ACL права
 
 ---
 
+# 🔎 fzf
+
+Интерактивный поиск файлов, строк и истории команд.
+
+```bash
+fzf                              # интерактивный поиск файлов
+history | fzf                    # поиск по истории команд
+ps aux | fzf                     # поиск процесса
+kubectl get pods | fzf           # выбор pod из списка
+```
+
+
+---
+
 # 🔍 FIND / SEARCH
 
 ```bash
@@ -279,7 +293,21 @@ find . -maxdepth 1 -type f                 # найти файлы в текущ
 locate -i nginx.conf                       # быстрый поиск без регистра
 grep -r 'TODO' ./                          # рекурсивный поиск по тексту
 ```
+---
 
+# 📂 fd (fdfind)
+
+Современная замена `find`.
+
+```bash
+fdfind nginx                     # поиск файлов по имени
+fdfind '\.yaml$' ~/k8s           # найти все YAML-файлы
+fdfind -e yaml                   # поиск по расширению
+fdfind config /etc               # поиск в указанной директории
+fdfind -t f nginx                # только файлы
+fdfind -t d logs                 # только директории
+fdfind -H cert                   # искать включая скрытые файлы
+```
 ---
 
 # 🔎 GREP / TEXT
@@ -308,6 +336,24 @@ uniq file.txt                               # удалить дублирующ�
 uniq -c file.txt                            # показать количество совпадений
 uniq -d file.txt                            # показать только повторяющие совпадения
 uniq -i file.txt                            # игнорировать регистр при сравнение совпадений
+```
+
+---
+
+# ⚡ ripgrep (rg)
+
+Современная и очень быстрая замена `grep`.
+
+```bash
+rg nginx                         # поиск текста
+rg -i nginx                      # поиск без учета регистра
+rg nginx /etc                    # поиск в указанной директории
+rg -l cert-manager ~/k8s         # показать только имена файлов с совпадением
+rg ingress ~/k8s -g '*.yaml'     # искать только в YAML-файлах
+rg -n nginx                      # показать номера строк
+rg -C 3 error app.log            # показать 3 строки до и после совпадения
+rg --hidden TODO                 # искать включая скрытые файлы
+rg -g '!*.log' password .        # исключить *.log из поиска
 ```
 
 ---
