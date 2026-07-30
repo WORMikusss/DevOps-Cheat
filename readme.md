@@ -387,8 +387,14 @@ nethogs -v 4 eth0               # какой процесс отправляет
 ip a                            # IP адреса
 ip route                        # маршруты
 ss -tulnp                       # открытые порты
-curl -I https://google.com      # проверить HTTP заголовки
-curl -v http://localhost:8080   # подробный HTTP запрос
+
+curl -I http://example.com      # Проверить, есть ли редирект HTTP → HTTPS
+curl -L http://example.com      # следовать редиректам 301/302
+curl -v http://localhost:8080   # подробный HTTP-запрос и ответ
+curl -I https://example.com     # Проверить, отвечает ли HTTPS
+curl -k https://example.com     # игнорировать ошибки TLS-сертификата
+curl -vk https://example.com    # подробная проверка HTTPS без проверки доверия
+
 nc -zv 127.0.0.1 5432           # проверить порт
 dig google.com                  # DNS запрос
 ping 8.8.8.8                    # проверить соединение
